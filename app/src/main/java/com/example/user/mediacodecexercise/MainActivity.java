@@ -41,7 +41,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         setSupportActionBar(toolbar);
 
         mSurfaceView = (SurfaceView) findViewById(R.id.surface_view);
-//        mSurfaceView.setBackgroundColor(Color.RED);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -50,7 +49,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             @Override
             public void onClick(View view) {
                 if ( mVideoPlayer != null ) {
-                    mVideoPlayer.stop();
+                    if ( mVideoPlayer.isPlaying() ) {
+                        mVideoPlayer.stop();
+                        return;
+                    }
                 }
 
                 mVideoPlayer = new VideoPlayer(
@@ -59,6 +61,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                         BASE_FOLDER + MainActivity.mSelectedFile );
                 VideoPlayer.PlayTask task = new VideoPlayer.PlayTask( mVideoPlayer );
                 task.execute();
+
+                VideoPlayer.OutputTask outTask = new VideoPlayer.OutputTask( mVideoPlayer );
+                outTask.execute();
 
 //                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
 //                        .setAction("Action", null).show();

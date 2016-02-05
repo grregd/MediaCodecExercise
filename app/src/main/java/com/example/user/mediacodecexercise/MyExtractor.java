@@ -37,7 +37,7 @@ public class MyExtractor
             Log.d( TAG, "readSampleData - aInputBuf.position(): " + aInputBuf.position() );
             Log.d( TAG, "readSampleData - aInputBuf.capacity(): " + aInputBuf.capacity() );
 
-            int chunkSize = Math.min( 100*1024, aInputBuf.limit() - aInputBuf.position() );;
+            int chunkSize = Math.min( 2048*1024, aInputBuf.limit() - aInputBuf.position() );;
 
             byte[] chunk = new byte[ chunkSize ];
             chunkSize = mStream.read(chunk, 0, chunkSize );
